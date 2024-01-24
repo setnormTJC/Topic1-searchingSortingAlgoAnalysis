@@ -66,23 +66,31 @@ int binarySearch(std::vector<int> sortedNums, int searchValue)
     int middle;
 
 
+    int comparisonCount = 0; 
+
     while (first <= last and !found)
     {
+
         middle = (first + last) / 2; //use ceil() or floor() for odd lengths … be cautious
         if (sortedNums[middle] == searchValue)
         {
             found = true;
         }
-        else if (sortedNums[middle] > searchValue)
+
+        else if (sortedNums[middle] > searchValue) //remmber the similarity to the HI-LO game
         {
+            comparisonCount++; 
             last = middle - 1;//shift last one to the "left" of middle
         }
         else
         {
+            comparisonCount++;
             first = middle + 1;
         }
 
     }//end while 
+
+    cout << "Number of comparisons: " << comparisonCount << endl; 
 
 
     if (found)
@@ -98,9 +106,22 @@ int binarySearch(std::vector<int> sortedNums, int searchValue)
 
 int main()
 {
- 
+    //use binary search in a bad-case scenario (the targetValue is the last element) 
+    vector<int> nums8 = { 1, 2, 3, 4, 5, 6, 7, 8 };
 
+    cout << "For 8 elements - comparisons equals: ";
+    binarySearch(nums8, 8);
 
+    vector<int> nums64; 
+    for (int i = 1; i < 65; i++)
+    {
+        nums64.push_back(i); 
+    }
+
+    cout << "For 64 elements - comparisons equals: ";
+    binarySearch(nums64, 64);
+
+    cout << "Log base 2 of 64: " << log2(64) << endl; 
 
     return 0;
 }
